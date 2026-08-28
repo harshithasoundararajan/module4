@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlogSpace - Write a Post</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">BlogSpace</a>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+    <div class="nav-links" id="navLinks"></div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="form-wrap">
+    <h2>Write a New Post</h2>
+    <p class="sub" style="color:var(--muted);margin:6px 0 20px">Share your thoughts with the world.</p>
+    <div class="msg" id="createMsg"></div>
+    <form id="createForm" onsubmit="handleCreate(event)">
+      <div class="field">
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" required placeholder="Give your post a title">
+      </div>
+      <div class="field">
+        <label for="postContent">Content</label>
+        <textarea id="postContent" rows="8" required placeholder="Write your blog post here..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Publish Post</button>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>initNav('create');</script>
+</body>
+</html>
