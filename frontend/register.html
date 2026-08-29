@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlogSpace - Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">BlogSpace</a>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+    <div class="nav-links" id="navLinks"></div>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Create your account</h2>
+    <p class="sub">Join BlogSpace and start sharing your ideas.</p>
+    <div class="msg" id="regMsg"></div>
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="field">
+        <label for="regName">Full Name</label>
+        <input type="text" id="regName" required placeholder="Jane Doe">
+      </div>
+      <div class="field">
+        <label for="regEmail">Email</label>
+        <input type="email" id="regEmail" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="regPass">Password</label>
+        <input type="password" id="regPass" required placeholder="At least 6 characters">
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <div class="switch">Already have an account? <a href="login.html">Log in</a></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>initNav('register');</script>
+</body>
+</html>
