@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlogSpace - Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">BlogSpace</a>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+    <div class="nav-links" id="navLinks"></div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="dash-header">
+    <div>
+      <h2>Welcome, <span id="welcomeName"></span></h2>
+      <p>Here's what you've published so far.</p>
+    </div>
+    <a href="create.html" class="btn btn-primary">+ New Post</a>
+  </div>
+
+  <div class="section-title"><h2>Your Posts</h2></div>
+  <div class="posts-grid" id="myPosts"></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  initNav('dashboard');
+  renderDashboard();
+</script>
+</body>
+</html>
