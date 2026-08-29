@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BlogSpace - Blog Details</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .blog-details {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .blog-detail-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+        }
+
+        .blog-detail-card h1 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .blog-info {
+            color: var(--muted);
+            font-size: .9rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .blog-content {
+            font-size: 1rem;
+            line-height: 1.9;
+            white-space: pre-wrap;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="nav-inner">
+
+            <a href="index.html" class="brand">
+                BlogSpace
+            </a>
+
+            <button class="hamburger" id="hamburger">
+                &#9776;
+            </button>
+
+            <div class="nav-links" id="navLinks"></div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- BLOG DETAILS -->
+
+    <main class="blog-details">
+
+        <div id="blogContainer" class="blog-detail-card">
+
+            <div class="empty">
+                Loading blog...
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+    <script>
+
+        initNav('');
+
+        async function loadBlogDetails() {
+
+            const container =
+                document.getElementById("blogContainer");
+
+            // Get blog ID from URL
+            const params =
+                new URLSearchParams(window.location.search);
+
+            const id = params.get("id");
+
+            // Check ID
+            if (!id) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        <h3>Blog ID is missing</h3>
+
+                        <br>
+
+                        <a
+                            href="index.html"
+                            class="btn btn-primary"
+                        >
+                            Back to Blogs
+                        </a>
+                    </div>
+                `;
+
+                return;
+            }
+
+            try {
+
+                // Get single blog from backend
+                const response = await fetch(
+                    `${API_URL}/blogs/${id}`
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Blog not found"
+                    );
+                }
+
+                const blog = data.blog;
+
+                // Format date
+                const date = blog.createdAt
+                    ? new Date(blog.createdAt)
+                        .toLocaleDateString("en-US", {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric"
+                        })
+                    : "";
+
+                // Display blog
+                container.innerHTML = `
+
+                    <h1>
+                        ${escapeHtml(blog.title)}
+                    </h1>
+
+                    <div class="blog-info">
+
+                        By
+                        <strong>
+                            ${escapeHtml(blog.author)}
+                        </strong>
+
+                        &nbsp; • &nbsp;
+
+                        ${date}
+
+                    </div>
+
+                    <div class="blog-content">
+                        ${escapeHtml(blog.content)}
+                    </div>
+
+                    <a
+                        href="index.html"
+                        class="btn btn-outline back-btn"
+                    >
+                        ← Back to Blogs
+                    </a>
+
+                `;
+
+            } catch (error) {
+
+                console.error(
+                    "Blog details error:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        <h3>
+                            Unable to load blog
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(error.message)}
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="index.html"
+                            class="btn btn-primary"
+                        >
+                            Back to Blogs
+                        </a>
+
+                    </div>
+
+                `;
+            }
+        }
+
+        // Load blog
+        loadBlogDetails();
+
+    </script>
+
+</body>
+
+</html>
