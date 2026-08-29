@@ -2,7 +2,7 @@
 // API CONFIGURATION
 // ==============================
 
-const API_URL = "http://localhost:3010/api";
+const API_URL = "https://module4-cpcu.onrender.com/api";
 
 // ==============================
 // STORAGE HELPERS
